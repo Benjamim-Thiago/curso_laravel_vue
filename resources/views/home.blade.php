@@ -1,31 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
+<page-component>
+    <slot>
+        <panel-component title="Menu">
+            <div class="row">
+                <div class="col-md-4">
+                    <box-component qtd="80" title="Artigos" url="#" color="orange" icon="ion ion-pie-graph"></box-component>
+                </div>
+                <div class="col-md-4">
+                    <box-component qtd="1500" title="Usuários" url="#" color="blue" icon="ion ion-person-stalker"></box-component>
+                </div>
+                <div class="col-md-4">
+                    <box-component qtd="3" title="Autores" url="#" color="red" icon="ion ion-person"></box-component>
+                </div>
+            </div>
+        </panel-component>
+    </slot>
+</page-component>
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <panel-component title="Menu">
-            Teste de conteúdo..
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <box-component></box-component>
-                    </div>
-
-                    <div class="col-md-4">
-                        <panel-component title="Conteúdo 2" color="panel-red-dark">
-                            Teste de conteúdo..
-                        </painel>
-                    </div>
-
-                    <div class="col-md-4">
-                        <panel-component title="Conteúdo 3" color="panel-primary">
-                            Teste de conteúdo..
-                        </painel>
-                    </div>
-
-                </div>
-            </panel-component>
+            
         </div>
     </div>
 </div>
