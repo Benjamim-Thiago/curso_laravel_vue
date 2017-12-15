@@ -43711,20 +43711,13 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "icon" }, [_c("i", { class: _vm.icon })]),
     _vm._v(" "),
-    _vm._m(0, false, false)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "small-box-footer", attrs: { href: "#" } }, [
+    _c("a", { staticClass: "small-box-footer", attrs: { href: _vm.url } }, [
       _vm._v("\n    Ver mais "),
       _c("i", { staticClass: "fa fa-arrow-circle-right" })
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -43799,7 +43792,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['size'],
+    computed: {
+        defineSize: function defineSize() {
+            if (this.size >= 12) {
+                return "col-md-12";
+            }
+            if (this.size <= 2) {
+                return "col-md-2 col-md-offset-5";
+            }
+            if (this.size % 2 == 0) {
+                return "col-md-" + this.size + " col-md-offset-" + (12 - this.size) / 2;
+            } else {
+                return "col-md-" + (parseInt(this.size) + 1) + " col-md-offset-" + (12 - (parseInt(this.size) + 1)) / 2;
+            }
+        }
+    }
+});
 
 /***/ }),
 /* 60 */
@@ -43811,12 +43821,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-10 col-md-offset-1" },
-        [_vm._t("default")],
-        2
-      )
+      _c("div", { class: _vm.defineSize }, [_vm._t("default")], 2)
     ])
   ])
 }
