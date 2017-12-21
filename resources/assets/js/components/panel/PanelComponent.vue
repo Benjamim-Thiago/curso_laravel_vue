@@ -30,12 +30,21 @@
         border-color: #ca1e1e;
     }
 
-      .panel-green-dark-1{
+    .panel-green-dark-1{
         border-color: #0e8413;
     }
     .panel-green-dark-1 > .panel-heading {
         color: #f5f7f9;
         background-color: #0e8413;
         border-color: #0e8413;
+    }
+
+    .panel-orange-dark-1{
+        border-color: #db7019;
+    }
+    .panel-orange-dark-1 > .panel-heading {
+        color: #f5f7f9;
+        background-color: #db7019;
+        border-color: #db7019;
     }
 </style>

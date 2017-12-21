@@ -23,4 +23,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('articles', 'Admin/ArticleController');
+Route::middleware(['auth'])->prefix('admin')->namespace('Admin')->group(function(){
+    Route::resource('articles', 'ArticleController');
+});

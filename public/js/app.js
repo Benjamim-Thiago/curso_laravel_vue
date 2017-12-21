@@ -43481,7 +43481,7 @@ exports = module.exports = __webpack_require__(10)(undefined);
 
 
 // module
-exports.push([module.i, "\n.panel-red-dark{\n    border-color: #ca1e1e;\n}\n.panel-red-dark > .panel-heading {\n    color: #f5f7f9;\n    background-color: #ca1e1e;\n    border-color: #ca1e1e;\n}\n.panel-green-dark-1{\n    border-color: #0e8413;\n}\n.panel-green-dark-1 > .panel-heading {\n    color: #f5f7f9;\n    background-color: #0e8413;\n    border-color: #0e8413;\n}\n", ""]);
+exports.push([module.i, "\n.panel-red-dark{\n    border-color: #ca1e1e;\n}\n.panel-red-dark > .panel-heading {\n    color: #f5f7f9;\n    background-color: #ca1e1e;\n    border-color: #ca1e1e;\n}\n.panel-green-dark-1{\n    border-color: #0e8413;\n}\n.panel-green-dark-1 > .panel-heading {\n    color: #f5f7f9;\n    background-color: #0e8413;\n    border-color: #0e8413;\n}\n.panel-orange-dark-1{\n    border-color: #db7019;\n}\n.panel-orange-dark-1 > .panel-heading {\n    color: #f5f7f9;\n    background-color: #db7019;\n    border-color: #db7019;\n}\n", ""]);
 
 // exports
 
