@@ -20,6 +20,7 @@ Vue.component('top-component', require('./components/topNav/TopComponent.vue'));
 Vue.component('panel-component', require('./components/panel/PanelComponent.vue'));
 Vue.component('box-component', require('./components/box/BoxComponent.vue'));
 Vue.component('page-component', require('./components/page/PageComponent.vue'));
+Vue.component('table-list-component', require('./components/tableList/TableListComponent.vue'));
 
 const app = new Vue({
     el: '#app'
