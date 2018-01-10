@@ -43873,9 +43873,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['titles', 'items']
+    props: ['titles', 'items', 'create', 'detail', 'edit', 'deleted', 'token']
 });
 
 /***/ }),
@@ -43887,9 +43894,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("a", { staticClass: "btn btn-primary", attrs: { href: "" } }, [
-      _vm._v("Criar")
-    ]),
+    _vm.create
+      ? _c(
+          "a",
+          { staticClass: "btn btn-primary", attrs: { href: _vm.create } },
+          [_vm._v("Criar")]
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("table", { staticClass: "table table-striped table-hover" }, [
       _c("thead", [
@@ -43900,7 +43911,9 @@ var render = function() {
               return _c("th", [_vm._v(_vm._s(title))])
             }),
             _vm._v(" "),
-            _c("th", [_vm._v("Ação")])
+            _vm.edit || _vm.detail || _vm.deleted
+              ? _c("th", [_vm._v("Ação")])
+              : _vm._e()
           ],
           2
         )
@@ -43916,7 +43929,57 @@ var render = function() {
                 return _c("td", [_vm._v(_vm._s(i))])
               }),
               _vm._v(" "),
-              _vm._m(0, true, false)
+              _vm.edit || _vm.detail || _vm.deleted
+                ? _c("td", [
+                    _c("form", { attrs: { action: "", method: "post" } }, [
+                      _c("input", {
+                        attrs: {
+                          type: "hidden",
+                          name: "_method",
+                          value: "delete"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: { type: "hidden", name: "_token" },
+                        domProps: { value: _vm.token }
+                      }),
+                      _vm._v(" "),
+                      _vm.edit
+                        ? _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-warning",
+                              attrs: { href: _vm.edit }
+                            },
+                            [_vm._v("Editar")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.datail
+                        ? _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-info",
+                              attrs: { href: _vm.detail }
+                            },
+                            [_vm._v("Detalhe")]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.deleted
+                        ? _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-danger",
+                              attrs: { href: _vm.deleted }
+                            },
+                            [_vm._v("Excluir")]
+                          )
+                        : _vm._e()
+                    ])
+                  ])
+                : _vm._e()
             ],
             2
           )
@@ -43925,22 +43988,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("a", { staticClass: "btn btn-warning", attrs: { href: "" } }, [
-        _vm._v("Editar")
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "btn btn-danger", attrs: { href: "" } }, [
-        _vm._v("Editar")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

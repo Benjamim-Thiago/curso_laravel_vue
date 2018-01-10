@@ -10,6 +10,7 @@
                         [1,'Laravel & Vue', 'Curso de Laravel & vue'],
                         [2,'VueJS', 'Curso de vueJS'],
                     ]"
+                create="#create" detail="#detail" edit="#edit" deleted="#delete" token="sfsfdsfsdf"
             >
         </table-list-component>
         </panel-component>
