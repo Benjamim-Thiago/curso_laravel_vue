@@ -43896,9 +43896,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['titles', 'items', 'create', 'detail', 'edit', 'deleted', 'token'],
+    props: ['titles', 'items', 'create', 'detail', 'edit', 'deleted', 'token', 'order', 'orderColumn'],
     data: function data() {
         return {
             search: ''
@@ -43907,13 +43909,57 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         executeForm: function executeForm(index) {
             document.getElementById(index).submit();
+        },
+        orderByColumn: function orderByColumn(column) {
+            this.orderColumn = column;
+            if (this.order.toLowerCase() == "asc") {
+                this.order = "desc";
+            } else {
+                this.order = "asc";
+            }
         }
     },
     computed: {
         list: function list() {
-            var filtered = "Laravel";
+            var _this = this;
+
+            var order = this.order || "ASC";
+            var orderColumn = this.orderColumn || 0;
+            order = order.toLowerCase();
+            orderColumn = parseInt(orderColumn);
+
+            if (order == "asc") {
+                this.items.sort(function (a, b) {
+                    if (a[orderColumn] > b[orderColumn]) {
+                        return 1;
+                    }
+                    if (a[orderColumn] < b[orderColumn]) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+            } else {
+                this.items.sort(function (a, b) {
+                    if (a[orderColumn] < b[orderColumn]) {
+                        return 1;
+                    }
+                    if (a[orderColumn] > b[orderColumn]) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
+            }
+
             return this.items.filter(function (res) {
-                return true;
+                //X=começar deum pois não ha interesse em pesquisar pelo Id
+                for (var x = 1; x < res.length; x++) {
+                    if (res[x].toString().toLowerCase().indexOf(_this.search.toLowerCase()) >= 0) {
+                        return true;
+                    }
+                }
+                return false;
             });
         }
     }
@@ -43958,8 +44004,7 @@ var render = function() {
               _vm.search = $event.target.value
             }
           }
-        }),
-        _vm._v("\n            " + _vm._s(_vm.search) + "\n        ")
+        })
       ])
     ]),
     _vm._v(" "),
@@ -43968,8 +44013,19 @@ var render = function() {
         _c(
           "tr",
           [
-            _vm._l(_vm.titles, function(title) {
-              return _c("th", [_vm._v(_vm._s(title))])
+            _vm._l(_vm.titles, function(title, index) {
+              return _c(
+                "th",
+                {
+                  staticStyle: { cursor: "pointer" },
+                  on: {
+                    click: function($event) {
+                      _vm.orderByColumn(index)
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(title))]
+              )
             }),
             _vm._v(" "),
             _vm.edit || _vm.detail || _vm.deleted
