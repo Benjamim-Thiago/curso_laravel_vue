@@ -43880,9 +43880,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['titles', 'items', 'create', 'detail', 'edit', 'deleted', 'token']
+    props: ['titles', 'items', 'create', 'detail', 'edit', 'deleted', 'token'],
+    methods: {
+        executeForm: function executeForm(index) {
+            document.getElementById(index).submit();
+        }
+    }
 });
 
 /***/ }),
@@ -43921,7 +43936,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.items, function(item) {
+        _vm._l(_vm.items, function(item, index) {
           return _c(
             "tr",
             [
@@ -43931,53 +43946,131 @@ var render = function() {
               _vm._v(" "),
               _vm.edit || _vm.detail || _vm.deleted
                 ? _c("td", [
-                    _c("form", { attrs: { action: "", method: "post" } }, [
-                      _c("input", {
-                        attrs: {
-                          type: "hidden",
-                          name: "_method",
-                          value: "delete"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        attrs: { type: "hidden", name: "_token" },
-                        domProps: { value: _vm.token }
-                      }),
-                      _vm._v(" "),
-                      _vm.edit
-                        ? _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-warning",
-                              attrs: { href: _vm.edit }
-                            },
-                            [_vm._v("Editar")]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.datail
-                        ? _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-info",
-                              attrs: { href: _vm.detail }
-                            },
-                            [_vm._v("Detalhe")]
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.deleted
-                        ? _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-danger",
-                              attrs: { href: _vm.deleted }
-                            },
-                            [_vm._v("Excluir")]
-                          )
-                        : _vm._e()
-                    ])
+                    _vm.deleted && _vm.token
+                      ? _c(
+                          "form",
+                          {
+                            attrs: {
+                              id: index,
+                              action: _vm.deleted,
+                              method: "post"
+                            }
+                          },
+                          [
+                            _c("input", {
+                              attrs: {
+                                type: "hidden",
+                                name: "_method",
+                                value: "delete"
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              attrs: { type: "hidden", name: "_token" },
+                              domProps: { value: _vm.token }
+                            }),
+                            _vm._v(" "),
+                            _vm.edit
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-warning",
+                                    attrs: { href: _vm.edit }
+                                  },
+                                  [_vm._v("Editar")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.datail
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-info",
+                                    attrs: { href: _vm.detail }
+                                  },
+                                  [_vm._v("Detalhe")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-danger",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.executeForm(index)
+                                  }
+                                }
+                              },
+                              [_vm._v("Remover")]
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.token
+                      ? _c("span", [
+                          _vm.edit
+                            ? _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-warning",
+                                  attrs: { href: _vm.edit }
+                                },
+                                [_vm._v("Editar")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.datail
+                            ? _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-info",
+                                  attrs: { href: _vm.detail }
+                                },
+                                [_vm._v("Detalhe")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.deleted
+                            ? _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-danger",
+                                  attrs: { href: _vm.deleted }
+                                },
+                                [_vm._v("Remover")]
+                              )
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.token && !_vm.deleted
+                      ? _c("span", [
+                          _vm.edit
+                            ? _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-warning",
+                                  attrs: { href: _vm.edit }
+                                },
+                                [_vm._v("Editar")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.datail
+                            ? _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-info",
+                                  attrs: { href: _vm.detail }
+                                },
+                                [_vm._v("Detalhe")]
+                              )
+                            : _vm._e()
+                        ])
+                      : _vm._e()
                   ])
                 : _vm._e()
             ],
