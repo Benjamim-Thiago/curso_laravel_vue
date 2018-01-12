@@ -10,7 +10,11 @@ class ArticleController extends Controller
     
     public function index()
     {
-        return view("admin.articles.index");
+        $listBreadCrumb = json_encode([
+            ["title" => "Home", "url" => route('home')],
+            ["title" => "Listagem de Compras", "url" => ""]
+        ]);
+        return view("admin.articles.index", compact('listBreadCrumb'));
     }
 
     public function create()

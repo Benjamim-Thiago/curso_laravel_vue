@@ -21,6 +21,9 @@ Vue.component('panel-component', require('./components/panel/PanelComponent.vue'
 Vue.component('box-component', require('./components/box/BoxComponent.vue'));
 Vue.component('page-component', require('./components/page/PageComponent.vue'));
 Vue.component('table-list-component', require('./components/tableList/TableListComponent.vue'));
+Vue.component('bread-crumb-component', require('./components/BreadCrumb/BreadCrumbComponent.vue'));
+Vue.component('modal-component', require('./components/Modal/ModalComponent.vue'));
+Vue.component('modal-link-component', require('./components/Modal/ModalLinkComponent.vue'));
 
 const app = new Vue({
     el: '#app'

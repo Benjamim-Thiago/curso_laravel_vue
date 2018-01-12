@@ -61,7 +61,9 @@
         ],
         data: function(){
             return {
-                search: ''
+                search: '',
+                orderAux: this.order || 'asc',
+                orderAuxColumn: this.orderColumn || 0
             }
         },
         methods: {
@@ -69,18 +71,18 @@
                 document.getElementById(index).submit()
             },
             orderByColumn: function(column){
-                this.orderColumn = column;
-                if(this.order.toLowerCase()=="asc"){
-                    this.order = "desc";
+                this.orderAuxColumn = column;
+                if(this.orderAux.toLowerCase()=="asc"){
+                    this.orderAux = "desc";
                 } else{
-                    this.order = "asc";
+                    this.orderAux = "asc";
                 }
             }
         },
         computed: {
             list: function(){
-                let order = this.order || "ASC";
-                let orderColumn = this.orderColumn || 0;
+                let order = this.orderAux;
+                let orderColumn = this.orderAuxColumn;
                 order = order.toLowerCase();
                 orderColumn = parseInt(orderColumn);
 

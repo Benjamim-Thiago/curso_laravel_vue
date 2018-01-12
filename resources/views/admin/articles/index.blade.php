@@ -4,6 +4,14 @@
 <page-component size="12">
     <slot>
         <panel-component title="Lista de Artigos" color="panel-orange-dark-1">
+            <bread-crumb-component v-bind:list="{{$listBreadCrumb}}"></bread-crumb-component>
+            <modal-link-component
+                type="button"
+                name="myModalTest"
+                title="Novo"
+                classcss=""
+            >
+            </modal-link-component>
             <table-list-component 
                 v-bind:titles="['#', 'Titulo', 'Descrição']"
                 v-bind:items="[
@@ -30,4 +38,31 @@
         </panel-component>
     </slot>
 </page-component>
+<modal-component
+    modalname="myModalTest"
+    modalclass="modal-dialog modal-lg">
+    <panel-component title="Adicionar Artigos">
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile">File input</label>
+                <input type="file" id="exampleInputFile">
+                <p class="help-block">Example block-level help text here.</p>
+            </div>
+            <div class="checkbox">
+                <label>
+                <input type="checkbox"> Check me out
+                </label>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </panel-component>
+</modal-component>
 @endsection

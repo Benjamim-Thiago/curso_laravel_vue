@@ -4,6 +4,7 @@
 <page-component size="10">
     <slot>
         <panel-component title="Menu">
+            <bread-crumb-component v-bind:list="{{$listBreadCrumb}}"></bread-crumb-component>
             <div class="row">
                 <div class="col-md-4">
                     <box-component qtd="80" title="Artigos" url="{{route('articles.index')}}" color="orange" icon="ion ion-pie-graph"></box-component>
