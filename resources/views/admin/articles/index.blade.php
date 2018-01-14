@@ -14,18 +14,7 @@
             </modal-link-component>
             <table-list-component 
                 v-bind:titles="['#', 'Titulo', 'Descrição']"
-                v-bind:items="[
-                        [1, 'Laravel & Vue', 'Curso de Laravel & vue'],
-                        [2, 'VueJS', 'Curso de vueJS'],
-                        [3, 'Vue 2', 'Curso de vue 2'],
-                        [4, 'React Native', 'Curso de React Native'],
-                        [5, 'PHP OO', 'Curso de PHP Orientado a Objetos'],
-                        [6, 'PHP MVC', 'Curso de PHP Padrão MVC'],
-                        [7, 'Ruby on Rails', 'Curso de Ruby on Rails'],
-                        [8, 'Angular & Node', 'Curso de Angular & Node'],
-                        [9, 'Java', 'Curso de Java'],
-                        [10, 'Bootstrap', 'Curso de Bootstrap']
-                    ]"
+                v-bind:items="{{ $listArticles }}"
                 create="#create" 
                 detail="#detail" 
                 edit="#edit" 
@@ -42,27 +31,26 @@
     modalname="myModalTest"
     modalclass="modal-dialog modal-lg">
     <panel-component title="Adicionar Artigos">
-        <form>
+        <form-component 
+            classcss=""
+            action="#"
+            method="put"
+            enctype="multipart/form-data"
+            token="1234567!@#$%&">
+
             <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                <label for="title">Titulo</label>
+                <input type="text" id="title" name="title" 
+                    class="form-control" placeholder="Digite o Título">
             </div>
+
             <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label for="description">Titulo</label>
+                <input type="text" id="description" name="description" 
+                    class="form-control" placeholder="Digite a Descrição">
             </div>
-            <div class="form-group">
-                <label for="exampleInputFile">File input</label>
-                <input type="file" id="exampleInputFile">
-                <p class="help-block">Example block-level help text here.</p>
-            </div>
-            <div class="checkbox">
-                <label>
-                <input type="checkbox"> Check me out
-                </label>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+            <button type="submit" class="btn btn-success">Adicionar</button>
+        </form-component>
     </panel-component>
 </modal-component>
 @endsection

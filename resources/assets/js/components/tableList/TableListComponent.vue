@@ -88,29 +88,35 @@
 
                 if(order=="asc"){
                     this.items.sort(function(a, b){
-                        if(a[orderColumn] > b[orderColumn]){ return 1;}
-                        if(a[orderColumn] < b[orderColumn]){ return -1;}
+                        if(Object.values(a)[orderColumn] > Object.values(b)[orderColumn]){ return 1;}
+                        if(Object.values(a)[orderColumn] < Object.values(b)[orderColumn]){ return -1;}
 
                         return 0;
                     });
                 }else{
                     this.items.sort(function(a, b){
-                        if(a[orderColumn] < b[orderColumn]){ return 1;}
-                        if(a[orderColumn] > b[orderColumn]){ return -1;}
+                        if(Object.values(a)[orderColumn] < Object.values(b)[orderColumn]){ return 1;}
+                        if(Object.values(a)[orderColumn] > Object.values(b)[orderColumn]){ return -1;}
 
                         return 0;
                     });
                 }
-                
-                return this.items.filter(res=>{
-                    //X=começar deum pois não ha interesse em pesquisar pelo Id
-                    for(var x=1; x < res.length; x++){
-                        if((res[x].toString()).toLowerCase().indexOf(this.search.toLowerCase()) >= 0){
-                            return true;
+
+                //verifica se foi existe busca
+                if(this.search){
+                    return this.items.filter(res=>{
+                        //X=começar deum pois não ha interesse em pesquisar pelo Id
+                        for(var x=1; x < Object.values(res).length; x++){
+                            if((Object.values(res)[x].toString()).toLowerCase().indexOf(this.search.toLowerCase()) >= 0){
+                                return true;
+                            }
                         }
-                    }
-                    return false;
-                })
+                        return false;
+                    })
+                }
+
+                //Retorna lista se não houver busca(lista completa)
+                return this.items;
             }
         }
     }

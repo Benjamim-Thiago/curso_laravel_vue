@@ -24,6 +24,7 @@ Vue.component('table-list-component', require('./components/tableList/TableListC
 Vue.component('bread-crumb-component', require('./components/BreadCrumb/BreadCrumbComponent.vue'));
 Vue.component('modal-component', require('./components/Modal/ModalComponent.vue'));
 Vue.component('modal-link-component', require('./components/Modal/ModalLinkComponent.vue'));
+Vue.component('form-component', require('./components/Form/FormComponent.vue'));
 
 const app = new Vue({
     el: '#app'

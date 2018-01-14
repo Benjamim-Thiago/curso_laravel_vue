@@ -12,9 +12,18 @@ class ArticleController extends Controller
     {
         $listBreadCrumb = json_encode([
             ["title" => "Home", "url" => route('home')],
-            ["title" => "Listagem de Compras", "url" => ""]
+            ["title" => "Listagem de Artigos", "url" => ""]
         ]);
-        return view("admin.articles.index", compact('listBreadCrumb'));
+
+        $listArticles = json_encode([
+            ["id" =>1, "title" => "Laravel & Vue", "description" => "Curso de Laravel & vue"],
+            ["id" =>2, "title" => "VueJs", "description" => "Curso de VueJs"],
+            ["id" =>3, "title" => "Vue 2", "description" => "Curso de Vue2"],
+            ["id" =>4, "title" => "Angular", "description" => "Curso de Angular 5"],            
+            ["id" =>5, "title" => "Bootstrap", "description" => "Bootstrap"]            
+        ]);
+
+        return view("admin.articles.index", compact('listBreadCrumb', 'listArticles'));
     }
 
     public function create()
