@@ -62,13 +62,13 @@
             <div class="form-group">
                 <label for="title">Titulo</label>
                 <input type="text" id="title" name="title" 
-                    class="form-control" placeholder="Digite o Título">
+                    class="form-control" placeholder="Digite o Título" v-model="$store.state.item.title">
             </div>
 
             <div class="form-group">
                 <label for="description">Titulo</label>
                 <input type="text" id="description" name="description" 
-                    class="form-control" placeholder="Digite a Descrição">
+                    class="form-control" placeholder="Digite a Descrição" v-model="$store.state.item.description">
             </div>
             <button type="submit" class="btn btn-success">Atualizar</button>
         </form-component>

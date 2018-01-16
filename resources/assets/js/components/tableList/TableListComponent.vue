@@ -26,7 +26,7 @@
                             <input type="hidden" name="_token" v-bind:value="token">
                             
                             <a v-if="edit && !modal" v-bind:href="edit" class="btn btn-warning">Editar</a>
-                            <modal-link-component v-if="edit && modal" type="button" modalname="edit" title="Editar" classcss="btn btn-warning">
+                            <modal-link-component v-if="edit && modal" v-bind:item="item" type="button" modalname="edit" title="Editar" classcss="btn btn-warning">
                             </modal-link-component>
                             
                             <a v-if="detail" v-bind:href="detail"  class="btn btn-info">Detalhe</a>

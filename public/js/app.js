@@ -1400,6 +1400,19 @@ window.Vue = __webpack_require__(38);
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */]);
 
+//Vuex
+
+var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
+  state: {
+    item: {}
+  },
+  mutations: {
+    setItem: function setItem(state, obj) {
+      state.item = obj;
+    }
+  }
+});
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -1418,7 +1431,7 @@ Vue.component('modal-link-component', __webpack_require__(71));
 Vue.component('form-component', __webpack_require__(74));
 
 var app = new Vue({
-  el: '#app'
+  el: '#app', store: store
 });
 
 /***/ }),
@@ -45075,6 +45088,7 @@ var render = function() {
                             _vm.edit && _vm.modal
                               ? _c("modal-link-component", {
                                   attrs: {
+                                    item: item,
                                     type: "button",
                                     modalname: "edit",
                                     title: "Editar",
@@ -45523,9 +45537,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['type', 'modalname', 'title', 'classcss']
+    props: ['type', 'modalname', 'title', 'classcss', 'item'],
+    methods: {
+        fillForm: function fillForm() {
+            this.$store.commit('setItem', this.item);
+        }
+    }
 });
 
 /***/ }),
@@ -45537,49 +45569,117 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("span", [
-    !_vm.type || (_vm.type != "button" && _vm.type != "link")
-      ? _c(
-          "button",
-          {
-            class: _vm.classcss || "btn btn-primary",
-            attrs: {
-              type: "button",
-              "data-toggle": "modal",
-              "data-target": "#" + _vm.modalname
-            }
-          },
-          [_vm._v(_vm._s(_vm.title))]
-        )
+    _vm.item
+      ? _c("span", [
+          !_vm.type || (_vm.type != "button" && _vm.type != "link")
+            ? _c(
+                "button",
+                {
+                  class: _vm.classcss || "btn btn-primary",
+                  attrs: {
+                    type: "button",
+                    "data-toggle": "modal",
+                    "data-target": "#" + _vm.modalname
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.fillForm()
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.title))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "button"
+            ? _c(
+                "button",
+                {
+                  class: _vm.classcss || "btn btn-primary",
+                  attrs: {
+                    type: "button",
+                    "data-toggle": "modal",
+                    "data-target": "#" + _vm.modalname
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.fillForm()
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.title))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "link"
+            ? _c(
+                "a",
+                {
+                  class: _vm.classcss || "",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#" + _vm.modalname
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.fillForm()
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.title))]
+              )
+            : _vm._e()
+        ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.type == "button"
-      ? _c(
-          "button",
-          {
-            class: _vm.classcss || "btn btn-primary",
-            attrs: {
-              type: "button",
-              "data-toggle": "modal",
-              "data-target": "#" + _vm.modalname
-            }
-          },
-          [_vm._v(_vm._s(_vm.title))]
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.type == "link"
-      ? _c(
-          "a",
-          {
-            class: _vm.classcss || "",
-            attrs: {
-              href: "#",
-              "data-toggle": "modal",
-              "data-target": "#" + _vm.modalname
-            }
-          },
-          [_vm._v(_vm._s(_vm.title))]
-        )
+    !_vm.item
+      ? _c("span", [
+          !_vm.type || (_vm.type != "button" && _vm.type != "link")
+            ? _c(
+                "button",
+                {
+                  class: _vm.classcss || "btn btn-primary",
+                  attrs: {
+                    type: "button",
+                    "data-toggle": "modal",
+                    "data-target": "#" + _vm.modalname
+                  }
+                },
+                [_vm._v(_vm._s(_vm.title))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "button"
+            ? _c(
+                "button",
+                {
+                  class: _vm.classcss || "btn btn-primary",
+                  attrs: {
+                    type: "button",
+                    "data-toggle": "modal",
+                    "data-target": "#" + _vm.modalname
+                  }
+                },
+                [_vm._v(_vm._s(_vm.title))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.type == "link"
+            ? _c(
+                "a",
+                {
+                  class: _vm.classcss || "",
+                  attrs: {
+                    href: "#",
+                    "data-toggle": "modal",
+                    "data-target": "#" + _vm.modalname
+                  }
+                },
+                [_vm._v(_vm._s(_vm.title))]
+              )
+            : _vm._e()
+        ])
       : _vm._e()
   ])
 }
