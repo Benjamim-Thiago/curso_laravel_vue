@@ -29,7 +29,10 @@
                             <modal-link-component v-if="edit && modal" v-bind:item="item" type="button" modalname="edit" title="Editar" classcss="btn btn-warning">
                             </modal-link-component>
                             
-                            <a v-if="detail" v-bind:href="detail"  class="btn btn-info">Detalhe</a>
+                            <a v-if="detail && !modal" v-bind:href="detail"  class="btn btn-info">Detalhe</a>
+                            <modal-link-component v-if="detail && modal" v-bind:item="item" type="button" modalname="detail" title="Detalhe" classcss="btn btn-info">
+                            </modal-link-component>
+
                             <a href="#" v-on:click="executeForm(index)" class="btn btn-danger">Remover</a>
                         </form>
                         <span v-if="!token">
@@ -115,9 +118,10 @@
                 //verifica se foi existe busca
                 if(this.search){
                     return this.items.filter(res=>{
+                        res = Object.values(res);
                         //X=começar deum pois não ha interesse em pesquisar pelo Id
-                        for(var x=1; x < Object.values(res).length; x++){
-                            if((Object.values(res)[x].toString()).toLowerCase().indexOf(this.search.toLowerCase()) >= 0){
+                        for(var x=1; x < res.length; x++){
+                            if(res[x].toString().toLowerCase().indexOf(this.search.toLowerCase()) >= 0){
                                 return true;
                             }
                         }

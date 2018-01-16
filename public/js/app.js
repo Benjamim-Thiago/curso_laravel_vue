@@ -44876,6 +44876,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['titles', 'items', 'create', 'detail', 'edit', 'deleted', 'token', 'order', 'orderColumn', 'modal'],
@@ -44935,9 +44938,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             //verifica se foi existe busca
             if (this.search) {
                 return this.items.filter(function (res) {
+                    res = Object.values(res);
                     //X=começar deum pois não ha interesse em pesquisar pelo Id
-                    for (var x = 1; x < Object.values(res).length; x++) {
-                        if (Object.values(res)[x].toString().toLowerCase().indexOf(_this.search.toLowerCase()) >= 0) {
+                    for (var x = 1; x < res.length; x++) {
+                        if (res[x].toString().toLowerCase().indexOf(_this.search.toLowerCase()) >= 0) {
                             return true;
                         }
                     }
@@ -45097,7 +45101,7 @@ var render = function() {
                                 })
                               : _vm._e(),
                             _vm._v(" "),
-                            _vm.detail
+                            _vm.detail && !_vm.modal
                               ? _c(
                                   "a",
                                   {
@@ -45106,6 +45110,18 @@ var render = function() {
                                   },
                                   [_vm._v("Detalhe")]
                                 )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.detail && _vm.modal
+                              ? _c("modal-link-component", {
+                                  attrs: {
+                                    item: item,
+                                    type: "button",
+                                    modalname: "detail",
+                                    title: "Detalhe",
+                                    classcss: "btn btn-info"
+                                  }
+                                })
                               : _vm._e(),
                             _vm._v(" "),
                             _c(
@@ -45418,10 +45434,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     //modal-dialog modal-lg
-    props: ['modalname', 'modalclass'],
+    props: ['modalname', 'title'],
     data: function data() {
         return {
             classModal: this.modalclass
@@ -45441,26 +45467,62 @@ var render = function() {
     "div",
     {
       staticClass: "modal fade",
-      attrs: {
-        id: _vm.modalname,
-        tabindex: "-1",
-        role: "dialog",
-        "aria-labelledby": _vm.modalname
-      }
+      attrs: { id: _vm.modalname, tabindex: "-1", role: "dialog" }
     },
     [
-      _c(
-        "div",
-        {
-          class: _vm.classModal || "modal-dialog modal-lg",
-          attrs: { role: "document" }
-        },
-        [_c("div", { staticClass: "modal-content" }, [_vm._t("default")], 2)]
-      )
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _c("div", { staticClass: "modal-header" }, [
+            _vm._m(0, false, false),
+            _vm._v(" "),
+            _c("h4", { staticClass: "modal-title" }, [
+              _vm._v(_vm._s(_vm.title))
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-body" }, [_vm._t("default")], 2),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "modal-footer" },
+            [
+              _vm._t("buttons"),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default",
+                  attrs: { type: "button", "data-dismiss": "modal" }
+                },
+                [_vm._v("Close")]
+              )
+            ],
+            2
+          )
+        ])
+      ])
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
