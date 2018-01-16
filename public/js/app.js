@@ -1403,14 +1403,14 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */]);
 //Vuex
 
 var store = new __WEBPACK_IMPORTED_MODULE_0_vuex__["a" /* default */].Store({
-  state: {
-    item: {}
-  },
-  mutations: {
-    setItem: function setItem(state, obj) {
-      state.item = obj;
+    state: {
+        item: {}
+    },
+    mutations: {
+        setItem: function setItem(state, obj) {
+            state.item = obj;
+        }
     }
-  }
 });
 
 /**
@@ -1431,7 +1431,11 @@ Vue.component('modal-link-component', __webpack_require__(71));
 Vue.component('form-component', __webpack_require__(74));
 
 var app = new Vue({
-  el: '#app', store: store
+    el: '#app',
+    store: store,
+    mounted: function mounted() {
+        document.getElementById('app').style.display = "block";
+    }
 });
 
 /***/ }),
