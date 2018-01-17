@@ -6,7 +6,7 @@
         <panel-component title="Lista de Artigos" color="panel-orange-dark-1">
             <bread-crumb-component v-bind:list="{{$listBreadCrumb}}"></bread-crumb-component>
             <table-list-component 
-                v-bind:titles="['#', 'Titulo', 'Descrição']"
+                v-bind:titles="['#', 'Titulo', 'Descrição', 'Data']"
                 v-bind:items="{{ $listArticles }}"
                 create="#create" 
                 detail="#detail" 
@@ -25,21 +25,29 @@
     <form-component 
         id="formAdd" 
         classcss=""
-        action="#"
-        method="put"
-        enctype="multipart/form-data"
-        token="1234567!@#$%&">
+        action="{{ route('articles.store') }}"
+        method="post"
+        enctype=""
+        token="{{ csrf_token() }}">
 
         <div class="form-group">
             <label for="title">Titulo</label>
-            <input type="text" id="title" name="title" 
-                class="form-control" placeholder="Digite o Título">
+            <input type="text" id="title" name="title" class="form-control" placeholder="Digite o Título">
         </div>
 
         <div class="form-group">
-            <label for="description">Titulo</label>
-            <input type="text" id="description" name="description" 
-                class="form-control" placeholder="Digite a Descrição">
+            <label for="description">Descrição</label>
+            <input type="text" id="description" name="description" class="form-control" placeholder="Digite a Descrição">
+        </div>
+
+        <div class="form-group">
+            <label for="date">Data</label>
+            <input type="datetime-local" id="date" name="date" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="content">Teor</label>
+            <textarea name="content" id="content" class="form-control"></textarea>
         </div>
     </form-component>
     <span slot="buttons">
