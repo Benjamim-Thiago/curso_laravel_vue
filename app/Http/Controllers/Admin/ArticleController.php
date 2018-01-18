@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Article\Article;
+use App\Http\Requests\Article\ArticleRequest;
 
 class ArticleController extends Controller
 {
@@ -33,11 +34,11 @@ class ArticleController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
         //dd($request->all());
         Article::create($request->all());
-        return redirect()->back();
+        return redirect()->back()->withInput($request->all());
     }
  
     public function show($id)
