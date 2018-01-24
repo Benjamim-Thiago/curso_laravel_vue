@@ -21,23 +21,27 @@
                     <td v-for="i in item">{{i}}</td>
 
                     <td v-if="edit || detail || deleted">
-                        <form v-bind:id="index" v-if="deleted && token" v-bind:action="deleted" method="post">
+                        <form v-bind:id="index" v-if="deleted && token" v-bind:action="deleted + item.id" method="post">
                             <input type="hidden" name="_method" value="delete">
                             <input type="hidden" name="_token" v-bind:value="token">
                             
                             <a v-if="edit && !modal" v-bind:href="edit" class="btn btn-warning">Editar</a>
-                            <modal-link-component v-if="edit && modal" v-bind:item="item" type="button" modalname="edit" title="Editar" classcss="btn btn-warning">
+                            <modal-link-component v-if="edit && modal" v-bind:item="item" v-bind:url="edit" type="button" modalname="edit" title="Editar" classcss="btn btn-warning">
                             </modal-link-component>
                             
                             <a v-if="detail && !modal" v-bind:href="detail"  class="btn btn-info">Detalhe</a>
-                            <modal-link-component v-if="detail && modal" v-bind:item="item" type="button" modalname="detail" title="Detalhe" classcss="btn btn-info">
+                            <modal-link-component v-if="detail && modal" v-bind:item="item" v-bind:url="detail" type="button" modalname="detail" title="Detalhe" classcss="btn btn-info">
                             </modal-link-component>
 
                             <a href="#" v-on:click="executeForm(index)" class="btn btn-danger">Remover</a>
                         </form>
                         <span v-if="!token">
                             <a v-if="edit && !modal" v-bind:href="edit" class="btn btn-warning">Editar</a>
-                            <modal-link-component v-if="edit && modal" type="button" modalname="edit" title="Editar" classcss="btn btn-warning">
+                            <modal-link-component v-if="edit && modal" type="button" modalname="edit" v-bind:item="item" v-bind:url="edit" title="Editar" classcss="btn btn-warning">
+                            </modal-link-component>
+
+                            <a v-if="detail && !modal" v-bind:href="detail"  class="btn btn-info">Detalhe</a>
+                            <modal-link-component v-if="detail && modal" v-bind:item="item" v-bind:url="detail" type="button" modalname="detail" title="Detalhe" classcss="btn btn-info">
                             </modal-link-component>
 
                             <a v-if="detail" v-bind:href="detail" class="btn btn-info">Detalhe</a>
@@ -46,10 +50,12 @@
 
                         <span v-if="token && !deleted">
                             <a v-if="edit && !modal" v-bind:href="edit" class="btn btn-warning">Editar</a>
-                            <modal-link-component v-if="edit && modal" type="button" modalname="edit" title="Editar" classcss="btn btn-warning">
+                            <modal-link-component v-if="edit && modal" type="button" modalname="edit" v-bind:item="item" v-bind:url="edit" title="Editar" classcss="btn btn-warning">
                             </modal-link-component>
                             
-                            <a v-if="detail" v-bind:href="detail" class="btn btn-info">Detalhe</a>
+                            <a v-if="detail && !modal" v-bind:href="detail"  class="btn btn-info">Detalhe</a>
+                            <modal-link-component v-if="detail && modal" v-bind:item="item" v-bind:url="detail" type="button" modalname="detail" title="Detalhe" classcss="btn btn-info">
+                            </modal-link-component>
                         </span>   
                     </td>
                 </tr>
@@ -70,7 +76,8 @@
             'token',
             'order',
             'orderColumn',
-            'modal'
+            'modal',
+            'urlsearch'
         ],
         data: function(){
             return {
@@ -94,20 +101,22 @@
         },
         computed: {
             list: function(){
+                let list = this.items.data;
+
                 let order = this.orderAux;
                 let orderColumn = this.orderAuxColumn;
                 order = order.toLowerCase();
                 orderColumn = parseInt(orderColumn);
 
                 if(order=="asc"){
-                    this.items.sort(function(a, b){
+                    list.sort(function(a, b){
                         if(Object.values(a)[orderColumn] > Object.values(b)[orderColumn]){ return 1;}
                         if(Object.values(a)[orderColumn] < Object.values(b)[orderColumn]){ return -1;}
 
                         return 0;
                     });
                 }else{
-                    this.items.sort(function(a, b){
+                    list.sort(function(a, b){
                         if(Object.values(a)[orderColumn] < Object.values(b)[orderColumn]){ return 1;}
                         if(Object.values(a)[orderColumn] > Object.values(b)[orderColumn]){ return -1;}
 
@@ -115,9 +124,16 @@
                     });
                 }
 
-                //verifica se foi existe busca
+                //verifica se existe busca
                 if(this.search){
-                    return this.items.filter(res=>{
+                    axios.get(this.urlsearch + this.search).then(res=>{
+                    //console.log(res.data);
+                       res = Object.values(res);
+                       list = res.data;
+
+                       return list;
+                    });
+                    return list.filter(res=>{
                         res = Object.values(res);
                         //X=começar deum pois não ha interesse em pesquisar pelo Id
                         for(var x=1; x < res.length; x++){
@@ -130,8 +146,9 @@
                 }
 
                 //Retorna lista se não houver busca(lista completa)
-                return this.items;
+                return list;
             }
         }
     }
+    
 </script>

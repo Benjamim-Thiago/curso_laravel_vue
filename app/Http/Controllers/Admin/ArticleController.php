@@ -16,7 +16,7 @@ class ArticleController extends Controller
             ["title" => "Home", "url" => route('home')],
             ["title" => "Listagem de Artigos", "url" => ""]
         ]);
-         $listArticles = json_encode(Article::select('id', 'title', 'description','date')->get());   
+         $listArticles = Article::select('id', 'title', 'description','date')->paginate(2);   
         /*$listArticles = json_encode([
             ["id" =>1, "title" => "Laravel & Vue", "description" => "Curso de Laravel & vue", "date"=>"2017-12-03"],
             ["id" =>2, "title" => "VueJs", "description" => "Curso de VueJs", "date"=>"2017-09-05"],
@@ -37,13 +37,19 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
         //dd($request->all());
-        Article::create($request->all());
-        return redirect()->back()->withInput($request->all());
+        $article = new Article;
+        $article = $article->create($request->all());
+
+        if(!$article){
+            return redirect()->back()->withInput($request->all());
+        }
+
+        return redirect()->back();
     }
  
     public function show($id)
     {
-        //
+        return Article::find($id);
     }
 
     public function edit($id)
@@ -51,13 +57,27 @@ class ArticleController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(ArticleRequest $request, $id)
     {
-        //
+        //dd($request->all());
+        $article = new Article;
+        $article = $article->find($id)->update($request->all());
+
+        if(!$article){
+            return redirect()->back()->withInput($request->all());
+        }
+
+        return redirect()->back();
     }
 
     public function destroy($id)
     {
-        //
+        Article::find($id)->delete();       
+        return redirect()->back();
+    }
+
+    public function search($value)
+    {
+        return Article::search($value);
     }
 }

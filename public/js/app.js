@@ -44883,9 +44883,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['titles', 'items', 'create', 'detail', 'edit', 'deleted', 'token', 'order', 'orderColumn', 'modal'],
+    props: ['titles', 'items', 'create', 'detail', 'edit', 'deleted', 'token', 'order', 'orderColumn', 'modal', 'urlsearch'],
     data: function data() {
         return {
             search: '',
@@ -44910,13 +44916,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         list: function list() {
             var _this = this;
 
+            var list = this.items.data;
+
             var order = this.orderAux;
             var orderColumn = this.orderAuxColumn;
             order = order.toLowerCase();
             orderColumn = parseInt(orderColumn);
 
             if (order == "asc") {
-                this.items.sort(function (a, b) {
+                list.sort(function (a, b) {
                     if (Object.values(a)[orderColumn] > Object.values(b)[orderColumn]) {
                         return 1;
                     }
@@ -44927,7 +44935,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return 0;
                 });
             } else {
-                this.items.sort(function (a, b) {
+                list.sort(function (a, b) {
                     if (Object.values(a)[orderColumn] < Object.values(b)[orderColumn]) {
                         return 1;
                     }
@@ -44939,9 +44947,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
 
-            //verifica se foi existe busca
+            //verifica se existe busca
             if (this.search) {
-                return this.items.filter(function (res) {
+                axios.get(this.urlsearch + this.search).then(function (res) {
+                    //console.log(res.data);
+                    res = Object.values(res);
+                    list = res.data;
+
+                    return list;
+                });
+                return list.filter(function (res) {
                     res = Object.values(res);
                     //X=começar deum pois não ha interesse em pesquisar pelo Id
                     for (var x = 1; x < res.length; x++) {
@@ -44954,7 +44969,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             //Retorna lista se não houver busca(lista completa)
-            return this.items;
+            return list;
         }
     }
 });
@@ -45064,7 +45079,7 @@ var render = function() {
                           {
                             attrs: {
                               id: index,
-                              action: _vm.deleted,
+                              action: _vm.deleted + item.id,
                               method: "post"
                             }
                           },
@@ -45097,6 +45112,7 @@ var render = function() {
                               ? _c("modal-link-component", {
                                   attrs: {
                                     item: item,
+                                    url: _vm.edit,
                                     type: "button",
                                     modalname: "edit",
                                     title: "Editar",
@@ -45120,6 +45136,7 @@ var render = function() {
                               ? _c("modal-link-component", {
                                   attrs: {
                                     item: item,
+                                    url: _vm.detail,
                                     type: "button",
                                     modalname: "detail",
                                     title: "Detalhe",
@@ -45166,8 +45183,34 @@ var render = function() {
                                   attrs: {
                                     type: "button",
                                     modalname: "edit",
+                                    item: item,
+                                    url: _vm.edit,
                                     title: "Editar",
                                     classcss: "btn btn-warning"
+                                  }
+                                })
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.detail && !_vm.modal
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "btn btn-info",
+                                    attrs: { href: _vm.detail }
+                                  },
+                                  [_vm._v("Detalhe")]
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.detail && _vm.modal
+                              ? _c("modal-link-component", {
+                                  attrs: {
+                                    item: item,
+                                    url: _vm.detail,
+                                    type: "button",
+                                    modalname: "detail",
+                                    title: "Detalhe",
+                                    classcss: "btn btn-info"
                                   }
                                 })
                               : _vm._e(),
@@ -45218,13 +45261,15 @@ var render = function() {
                                   attrs: {
                                     type: "button",
                                     modalname: "edit",
+                                    item: item,
+                                    url: _vm.edit,
                                     title: "Editar",
                                     classcss: "btn btn-warning"
                                   }
                                 })
                               : _vm._e(),
                             _vm._v(" "),
-                            _vm.detail
+                            _vm.detail && !_vm.modal
                               ? _c(
                                   "a",
                                   {
@@ -45233,6 +45278,19 @@ var render = function() {
                                   },
                                   [_vm._v("Detalhe")]
                                 )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.detail && _vm.modal
+                              ? _c("modal-link-component", {
+                                  attrs: {
+                                    item: item,
+                                    url: _vm.detail,
+                                    type: "button",
+                                    modalname: "detail",
+                                    title: "Detalhe",
+                                    classcss: "btn btn-info"
+                                  }
+                                })
                               : _vm._e()
                           ],
                           1
@@ -45618,10 +45676,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['type', 'modalname', 'title', 'classcss', 'item'],
+    props: ['type', 'modalname', 'title', 'classcss', 'item', 'url'],
     methods: {
         fillForm: function fillForm() {
-            this.$store.commit('setItem', this.item);
+            var _this = this;
+
+            axios.get(this.url + this.item.id).then(function (res) {
+                //console.log(res.data);
+                _this.$store.commit('setItem', res.data);
+            });
+            //this.$store.commit('setItem', this.item);
         }
     }
 });

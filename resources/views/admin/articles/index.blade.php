@@ -15,17 +15,21 @@
             <bread-crumb-component v-bind:list="{{$listBreadCrumb}}"></bread-crumb-component>
             <table-list-component 
                 v-bind:titles="['#', 'Titulo', 'Descrição', 'Data']"
-                v-bind:items="{{ $listArticles }}"
+                v-bind:items="{{ json_encode($listArticles) }}"
                 create="#create" 
-                detail="#detail" 
-                edit="#edit" 
-                deleted="#delete" 
-                token="sfsfdsfsdf"
+                detail="/admin/articles/" 
+                edit="/admin/articles/" 
+                deleted="/admin/articles/" 
+                token="{{ csrf_token() }}"
                 order = "desc"
                 orderColumn = 1
                 modal="sim"
+                urlsearch="/admin/listarticles/"
             >
         </table-list-component>
+        <div align="center">
+            {{ $listArticles->links() }}
+        </div>
         </panel-component>
     </slot>
 </page-component>
@@ -40,7 +44,7 @@
 
         <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
             <label for="title">Titulo</label>
-            <input type="text" id="title" name="title" class="form-control" placeholder="Digite o Título">
+            <input type="text" id="title" name="title" class="form-control" placeholder="Digite o Título" value="{{old('title')}}">
             @if($errors->has('title'))
                 <span class="help-block">
                     <strong>{{ $errors->first('title') }}</strong>
@@ -50,7 +54,7 @@
 
         <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
             <label for="description">Descrição</label>
-            <input type="text" id="description" name="description" class="form-control" placeholder="Digite a Descrição">
+            <input type="text" id="description" name="description" class="form-control" placeholder="Digite a Descrição"  value="{{old('description')}}">
             @if($errors->has('description'))
                 <span class="help-block">
                     <strong>{{ $errors->first('description') }}</strong>
@@ -60,7 +64,7 @@
 
         <div class="form-group {{ $errors->has('date') ? 'has-error' : '' }}">
             <label for="date">Data</label>
-            <input type="datetime-local" id="date" name="date" class="form-control">
+            <input type="datetime-local" id="date" name="date" class="form-control" value="{{ old('date')}}">
             @if($errors->has('date'))
                 <span class="help-block">
                     <strong>{{ $errors->first('date') }}</strong>
@@ -70,7 +74,7 @@
 
         <div class="form-group {{ $errors->has('content') ? 'has-error' : '' }}">
             <label for="content">Teor</label>
-            <textarea name="content" id="content" class="form-control"></textarea>
+            <textarea name="content" id="content" class="form-control">{{old('description')}}</textarea>
             @if($errors->has('content'))
                 <span class="help-block">
                     <strong>{{ $errors->first('content') }}</strong>
@@ -87,21 +91,51 @@
     <form-component
         id="formEdit" 
         classcss=""
-        action="#"
+        v-bind:action="'/admin/articles/' + $store.state.item.id"
         method="put"
-        enctype="multipart/form-data"
-        token="1234567!@#$%&">
+        enctype=""
+        token="{{ csrf_token() }}">
 
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
             <label for="title">Titulo</label>
             <input type="text" id="title" name="title" 
                 class="form-control" placeholder="Digite o Título" v-model="$store.state.item.title">
+            @if($errors->has('title'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('title') }}</strong>
+                </span>
+            @endif
         </div>
 
-        <div class="form-group">
-            <label for="description">Titulo</label>
+        <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
+            <label for="description">Descrição</label>
             <input type="text" id="description" name="description" 
                 class="form-control" placeholder="Digite a Descrição" v-model="$store.state.item.description">
+            @if($errors->has('description'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('description') }}</strong>
+                </span>
+            @endif
+        </div>
+
+        <div class="form-group {{ $errors->has('date') ? 'has-error' : '' }}">
+            <label for="date">Data</label>
+            <input type="datetime" id="date" name="date" class="form-control" v-model="$store.state.item.date">
+            @if($errors->has('date'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('date') }}</strong>
+                </span>
+            @endif
+        </div>
+
+        <div class="form-group {{ $errors->has('content') ? 'has-error' : '' }}">
+            <label for="content">Teor</label>
+            <textarea name="content" id="content" class="form-control" v-model="$store.state.item.content"></textarea>
+            @if($errors->has('content'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('content') }}</strong>
+                </span>
+            @endif
         </div>
     </form-component>
     <span slot="buttons">
@@ -111,5 +145,7 @@
 
 <modal-component modalname="detail" v-bind:title="$store.state.item.title">
         <p>@{{$store.state.item.description}}</p>
+        <p>@{{$store.state.item.content}}</p>
+        <p>@{{$store.state.item.date}}</p>
 </modal-component>
 @endsection

@@ -25,4 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->prefix('admin')->namespace('Admin')->group(function(){
     Route::resource('articles', 'ArticleController');
+    Route::get('listarticles/{value}', 'ArticleController@search');
+    Route::resource('users', 'UserController');
 });
+
