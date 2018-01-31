@@ -11,16 +11,14 @@
       </div>
     @endif
     <slot>
-        <panel-component title="Lista de Usuários" color="panel-orange-dark-1">
+        <panel-component title="Lista de Autores" color="panel-green-dark-1">
             <bread-crumb-component v-bind:list="{{$listBreadCrumb}}"></bread-crumb-component>
             <table-list-component 
                 v-bind:titles="['#', 'Name', 'E-mail']"
                 v-bind:items="{{ json_encode($listing) }}"
                 create="#create" 
-                detail="/admin/users/" 
-                edit="/admin/users/" 
-                deleted="/admin/users/" 
-                token="{{ csrf_token() }}"
+                detail="/admin/authors/" 
+                edit="/admin/authors/" 
                 order = "desc"
                 orderColumn = 1
                 modal="sim"
@@ -33,22 +31,16 @@
         </panel-component>
     </slot>
 </page-component>
-<modal-component modalname="add" title="Adicionar Usuário">
+<modal-component modalname="add" title="Adicionar Autor">
     <form-component 
         id="formAdd" 
         classcss=""
-        action="{{ route('users.store') }}"
+        action="{{ route('authors.store') }}"
         method="post"
         enctype=""
         token="{{ csrf_token() }}">
 
-        <div class="form-group">
-            <label for="name">É Autor ?</label>
-            <select name="author" id="author" class="form-control">
-                <option {{(old('author') && old('author') == 'N' ? 'selected' : '')}} value="N">Não</option>
-                <option {{(old('author') && old('author') == 'Y' ? 'selected' : '')}} value="Y">Sim</option>
-            </select>
-        </div>
+        <input type="hidden" name="author" value="Y">
 
         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
             <label for="name">Nome</label>
@@ -90,7 +82,7 @@
     <form-component
         id="formEdit" 
         classcss=""
-        v-bind:action="'/admin/users/' + $store.state.item.id"
+        v-bind:action="'/admin/authors/' + $store.state.item.id"
         method="put"
         enctype=""
         token="{{ csrf_token() }}">

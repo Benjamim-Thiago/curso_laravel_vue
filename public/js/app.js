@@ -44886,9 +44886,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['titles', 'items', 'create', 'detail', 'edit', 'deleted', 'token', 'order', 'orderColumn', 'modal', 'urlsearch'],
@@ -45213,28 +45210,6 @@ var render = function() {
                                     classcss: "btn btn-info"
                                   }
                                 })
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.detail
-                              ? _c(
-                                  "a",
-                                  {
-                                    staticClass: "btn btn-info",
-                                    attrs: { href: _vm.detail }
-                                  },
-                                  [_vm._v("Detalhe")]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.deleted
-                              ? _c(
-                                  "a",
-                                  {
-                                    staticClass: "btn btn-danger",
-                                    attrs: { href: _vm.deleted }
-                                  },
-                                  [_vm._v("Remover")]
-                                )
                               : _vm._e()
                           ],
                           1

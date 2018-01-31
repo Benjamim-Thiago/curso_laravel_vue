@@ -43,9 +43,6 @@
                             <a v-if="detail && !modal" v-bind:href="detail"  class="btn btn-info">Detalhe</a>
                             <modal-link-component v-if="detail && modal" v-bind:item="item" v-bind:url="detail" type="button" modalname="detail" title="Detalhe" classcss="btn btn-info">
                             </modal-link-component>
-
-                            <a v-if="detail" v-bind:href="detail" class="btn btn-info">Detalhe</a>
-                            <a v-if="deleted" v-bind:href="deleted" class="btn btn-danger">Remover</a>
                         </span>
 
                         <span v-if="token && !deleted">

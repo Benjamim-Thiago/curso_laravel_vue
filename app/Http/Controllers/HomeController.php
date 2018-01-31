@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Article\Article;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -23,9 +25,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $users = new User;
+        $counts = [
+            "articles" => Article::count(),
+            "users" => $users->count(),
+            "authors" => $users->where('author', '=', 'Y')->count()
+        ];
         $listBreadCrumb = json_encode([
             ["title" => "Home", "url" => ""]
         ]);
-        return view('home', compact('listBreadCrumb'));
+        return view('home', compact('listBreadCrumb', 'counts'));
     }
 }

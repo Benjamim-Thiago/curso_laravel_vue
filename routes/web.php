@@ -27,5 +27,6 @@ Route::middleware(['auth'])->prefix('admin')->namespace('Admin')->group(function
     Route::resource('articles', 'ArticleController');
     Route::get('listarticles/{value}', 'ArticleController@search');
     Route::resource('users', 'UserController');
+    Route::resource('authors', 'AuthorController');
 });
 

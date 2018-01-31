@@ -7,18 +7,17 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Validation\Rule;
 
-class UserController extends Controller
+class AuthorController extends Controller
 {
-    
     public function index()
     {
         $listBreadCrumb = json_encode([
             ["title" => "Home", "url" => route('home')],
-            ["title" => "Listagem de Usuários", "url" => ""]
+            ["title" => "Listagem de Autores", "url" => ""]
         ]);
-        $listing = User::select('id', 'name', 'email')->paginate(4);   
+        $listing = User::select('id', 'name', 'email')->where('author', '=', 'Y')->paginate(4);   
         
-        return view("admin.users.index", compact('listBreadCrumb', 'listing'));
+        return view("admin.authors.index", compact('listBreadCrumb', 'listing'));
     }
 
     public function store(Request $request)

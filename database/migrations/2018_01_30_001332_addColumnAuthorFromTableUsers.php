@@ -14,7 +14,7 @@ class AddColumnAuthorFromTableUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('author',['N','S'])->default('N');
+            $table->enum('author',['N','Y'])->default('N');
         });
     }
 
